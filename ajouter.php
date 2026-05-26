@@ -1,4 +1,7 @@
-<?php require_once 'includes/header.php'; ?>
+<?php
+require_once 'includes/auth.php';
+require_once 'includes/header.php';
+?>
 
 <h2>Nouvelle declaration</h2>
 
@@ -21,4 +24,5 @@
 
 </form>
 
+<script src="assets/app.js"></script>
 <?php require_once 'includes/footer.php'; ?>

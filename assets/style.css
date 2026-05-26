@@ -18,7 +18,20 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-h1 { margin-bottom: 1rem; color: #2c3e50; }
+h1 { margin-bottom: 0; color: #2c3e50; }
+h2 { margin-bottom: 1.5rem; color: #2c3e50; }
+
+/* Barre superieure : titre + info utilisateur */
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.user-info { font-size: 0.9rem; color: #555; }
+.user-info span { margin-right: 1rem; }
+.user-info a { color: #dc2626; text-decoration: none; font-size: 0.85rem; }
+.user-info a:hover { text-decoration: underline; }
 
 nav { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #eee; }
 nav a { margin-right: 1rem; color: #2563eb; text-decoration: none; }
