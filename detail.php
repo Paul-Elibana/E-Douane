@@ -37,6 +37,10 @@ if (!$declaration) {
 
 <p style="margin-top: 1.5rem;">
     <a href="index.php" class="btn">Retour a la liste</a>
+    <a href="modifier_declaration.php?id=<?= $declaration['id'] ?>"
+       class="btn" style="margin-left: 0.5rem; background: #059669;">Modifier</a>
+    <a href="supprimer_declaration.php?id=<?= $declaration['id'] ?>"
+       class="btn lien-supprimer" style="margin-left: 0.5rem; background: #dc2626;">Supprimer</a>
 </p>
 
 <script src="assets/app.js"></script>

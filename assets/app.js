@@ -14,11 +14,11 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 3000);
     });
 
-    // 2. Confirmation avant suppression d'un utilisateur
+    // 2. Confirmation avant toute suppression (declaration ou utilisateur)
     var liensSupprimer = document.querySelectorAll('.lien-supprimer');
     liensSupprimer.forEach(function (lien) {
         lien.addEventListener('click', function (e) {
-            if (!confirm('Confirmer la suppression de cet utilisateur ?')) {
+            if (!confirm('Confirmer la suppression ?')) {
                 e.preventDefault();
             }
         });

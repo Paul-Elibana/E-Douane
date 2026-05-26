@@ -24,6 +24,12 @@ $declarations = $requete->fetchAll();
 <?php if (isset($_GET['succes'])): ?>
     <p class="alert alert-success">Declaration ajoutee avec succes.</p>
 <?php endif; ?>
+<?php if (isset($_GET['modifie'])): ?>
+    <p class="alert alert-success">Declaration modifiee avec succes.</p>
+<?php endif; ?>
+<?php if (isset($_GET['supprime'])): ?>
+    <p class="alert alert-success">Declaration supprimee avec succes.</p>
+<?php endif; ?>
 
 <!-- Barre de recherche -->
 <form method="GET" action="index.php" class="search-bar">
@@ -59,7 +65,14 @@ $declarations = $requete->fetchAll();
                 <td><?= number_format($declaration['montant'], 2, ',', ' ') ?></td>
                 <td><?= htmlspecialchars($declaration['statut'], ENT_QUOTES, 'UTF-8') ?></td>
                 <td><?= date('d/m/Y', strtotime($declaration['created_at'])) ?></td>
-                <td><a href="detail.php?id=<?= $declaration['id'] ?>">Voir</a></td>
+                <td>
+                    <a href="detail.php?id=<?= $declaration['id'] ?>">Voir</a>
+                    &nbsp;|&nbsp;
+                    <a href="modifier_declaration.php?id=<?= $declaration['id'] ?>">Modifier</a>
+                    &nbsp;|&nbsp;
+                    <a href="supprimer_declaration.php?id=<?= $declaration['id'] ?>"
+                       class="lien-supprimer" style="color: #dc2626;">Supprimer</a>
+                </td>
             </tr>
             <?php endforeach; ?>
         </tbody>
