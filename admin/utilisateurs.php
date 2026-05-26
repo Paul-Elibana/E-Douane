@@ -1,9 +1,11 @@
 <?php
+// je charge la connexion, je verifie la session et je verifie que c'est un admin
 require_once '../config/db.php';
 require_once '../includes/auth.php';
 exigerAdmin();
 require_once '../includes/header.php';
 
+// je recupere tous les utilisateurs dans la base
 $users = $pdo->query("SELECT * FROM utilisateurs ORDER BY created_at DESC")->fetchAll();
 ?>
 
@@ -40,9 +42,9 @@ $users = $pdo->query("SELECT * FROM utilisateurs ORDER BY created_at DESC")->fet
                     <a href="modifier_utilisateur.php?id=<?= $user['id'] ?>">Modifier</a>
                     <?php if ($user['id'] !== $_SESSION['user_id']): ?>
                         &nbsp;|&nbsp;
+                        <!-- je cache le bouton supprimer pour eviter qu'un admin se supprime lui meme -->
                         <a href="supprimer_utilisateur.php?id=<?= $user['id'] ?>"
-                           class="lien-supprimer"
-                           style="color: #dc2626;">Supprimer</a>
+                           class="lien-supprimer" style="color: #dc2626;">Supprimer</a>
                     <?php endif; ?>
                 </td>
             </tr>

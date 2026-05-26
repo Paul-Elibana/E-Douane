@@ -1,7 +1,8 @@
 <?php
+// je demarre la session
 if (session_status() === PHP_SESSION_NONE) session_start();
 
-// Deja connecte → redirige vers l'accueil
+// si l'utilisateur est deja connecte je le redirige direct vers l'accueil
 if (isset($_SESSION['user_id'])) {
     header('Location: index.php');
     exit;
@@ -9,21 +10,26 @@ if (isset($_SESSION['user_id'])) {
 
 $erreur = '';
 
+// je traite le formulaire quand il est soumis
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once 'config/db.php';
 
+    // je recupere ce que l'utilisateur a tape
     $email = trim($_POST['email'] ?? '');
     $mdp   = trim($_POST['mot_de_passe'] ?? '');
 
+    // je verifie que les champs sont pas vides
     if ($email === '' || $mdp === '') {
         $erreur = "Tous les champs sont obligatoires.";
     } else {
+        // je cherche l'utilisateur dans la base avec son email
         $req = $pdo->prepare("SELECT * FROM utilisateurs WHERE email = :email");
         $req->execute([':email' => $email]);
         $user = $req->fetch();
 
+        // je verifie si l'utilisateur existe et si le mot de passe est bon
         if ($user && password_verify($mdp, $user['mot_de_passe'])) {
-            // Connexion reussie : on stocke les infos en session
+            // connexion reussie je sauvegarde ses infos dans la session
             $_SESSION['user_id']   = $user['id'];
             $_SESSION['user_nom']  = $user['prenom'] . ' ' . $user['nom'];
             $_SESSION['user_role'] = $user['role'];

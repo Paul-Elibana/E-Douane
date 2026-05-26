@@ -1,10 +1,12 @@
 <?php
+// je verifie que l'utilisateur est connecte
 require_once 'includes/auth.php';
 require_once 'includes/header.php';
 ?>
 
 <h2>Nouvelle declaration</h2>
 
+<!-- formulaire pour ajouter une declaration -->
 <form action="traiter_ajout.php" method="POST">
 
     <label for="numero">Numero de declaration</label>

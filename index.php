@@ -1,10 +1,13 @@
 <?php
+// je charge la connexion a la base et je verifie que l'utilisateur est connecte
 require_once 'config/db.php';
 require_once 'includes/auth.php';
 require_once 'includes/header.php';
 
+// je recupere le mot recherche dans l'URL (par exemple ?q=dupont)
 $recherche = trim($_GET['q'] ?? '');
 
+// si l'utilisateur a tape quelque chose je fais une recherche
 if ($recherche !== '') {
     $requete = $pdo->prepare("
         SELECT * FROM declarations
@@ -13,11 +16,14 @@ if ($recherche !== '') {
            OR statut      LIKE :terme
         ORDER BY created_at DESC
     ");
+    // les % permettent de chercher n'importe ou dans le texte
     $requete->execute([':terme' => '%' . $recherche . '%']);
 } else {
+    // sinon j'affiche tout
     $requete = $pdo->query("SELECT * FROM declarations ORDER BY created_at DESC");
 }
 
+// je mets les resultats dans un tableau
 $declarations = $requete->fetchAll();
 ?>
 
@@ -31,7 +37,7 @@ $declarations = $requete->fetchAll();
     <p class="alert alert-success">Declaration supprimee avec succes.</p>
 <?php endif; ?>
 
-<!-- Barre de recherche -->
+<!-- barre de recherche -->
 <form method="GET" action="index.php" class="search-bar">
     <input type="text" name="q" id="recherche-live"
            placeholder="Rechercher par numero, importateur, statut..."
@@ -42,7 +48,7 @@ $declarations = $requete->fetchAll();
     <?php endif; ?>
 </form>
 
-<!-- Liste -->
+<!-- affichage de la liste -->
 <?php if (empty($declarations)): ?>
     <p>Aucune declaration trouvee.</p>
 <?php else: ?>

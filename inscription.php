@@ -1,30 +1,36 @@
 <?php
+// je demarre la session
 if (session_status() === PHP_SESSION_NONE) session_start();
 
-// Deja connecte → redirige vers l'accueil
+// si l'utilisateur est deja connecte pas besoin qu'il s'inscrive
 if (isset($_SESSION['user_id'])) {
     header('Location: index.php');
     exit;
 }
 
-$erreur  = '';
-$succes  = '';
+$erreur = '';
+$succes = '';
 
+// je traite le formulaire quand il est envoye
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once 'config/db.php';
 
+    // je recupere les donnees du formulaire
     $prenom = trim($_POST['prenom'] ?? '');
     $nom    = trim($_POST['nom'] ?? '');
     $email  = trim($_POST['email'] ?? '');
     $mdp    = trim($_POST['mot_de_passe'] ?? '');
 
-    // Validation
+    // je verifie que tout est rempli
     if ($prenom === '' || $nom === '' || $email === '' || $mdp === '') {
         $erreur = "Tous les champs sont obligatoires.";
     } elseif (strlen($mdp) < 6) {
+        // le mot de passe doit faire au moins 6 caracteres
         $erreur = "Le mot de passe doit faire au moins 6 caracteres.";
     } else {
         try {
+            // j'insere le nouvel utilisateur dans la base
+            // le role est utilisateur par defaut
             $req = $pdo->prepare("
                 INSERT INTO utilisateurs (prenom, nom, email, mot_de_passe, role)
                 VALUES (:prenom, :nom, :email, :mdp, 'utilisateur')
@@ -33,10 +39,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ':prenom' => $prenom,
                 ':nom'    => $nom,
                 ':email'  => $email,
-                ':mdp'    => password_hash($mdp, PASSWORD_DEFAULT),
+                ':mdp'    => password_hash($mdp, PASSWORD_DEFAULT), // je hashe le mot de passe
             ]);
             $succes = "Compte cree avec succes. Vous pouvez maintenant vous connecter.";
         } catch (PDOException $e) {
+            // erreur 23000 veut dire que l'email existe deja
             if ($e->getCode() === '23000') {
                 $erreur = "Cet email est deja utilise.";
             } else {

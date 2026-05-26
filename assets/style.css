@@ -1,5 +1,7 @@
+/* j'enleve les marges et paddings par defaut sur tous les elements */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* style general de la page */
 body {
     background-color: #e2df1d;
     font-family: system-ui, -apple-system, sans-serif;
@@ -9,6 +11,7 @@ body {
     padding: 2rem;
 }
 
+/* la boite principale au centre de la page */
 .container {
     max-width: 900px;
     margin: 0 auto;
@@ -18,30 +21,38 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
+/* les titres */
 h1 { margin-bottom: 0; color: #2c3e50; }
 h2 { margin-bottom: 1.5rem; color: #2c3e50; }
 
-/* Barre superieure : titre + info utilisateur */
+/* barre du haut avec le titre et le nom de l'utilisateur connecte */
 .header-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
 }
+
+/* style pour les infos de l'utilisateur connecte en haut a droite */
 .user-info { font-size: 0.9rem; color: #555; }
 .user-info span { margin-right: 1rem; }
 .user-info a { color: #dc2626; text-decoration: none; font-size: 0.85rem; }
 .user-info a:hover { text-decoration: underline; }
 
+/* le menu de navigation */
 nav { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #eee; }
 nav a { margin-right: 1rem; color: #2563eb; text-decoration: none; }
 nav a:hover { text-decoration: underline; }
 
+/* le tableau pour afficher les declarations */
 table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
 th, td { padding: 0.75rem; text-align: left; border-bottom: 1px solid #eee; }
 th { background: #f9fafb; font-weight: 600; }
+
+/* je change la couleur quand on passe la souris sur une ligne */
 tr:hover { background: #f9fafb; }
 
+/* style des boutons */
 .btn {
     display: inline-block;
     padding: 0.5rem 1rem;
@@ -52,8 +63,10 @@ tr:hover { background: #f9fafb; }
     cursor: pointer;
     text-decoration: none;
 }
+/* je change la couleur du bouton quand on le survole */
 .btn:hover { background: #1d4ed8; }
 
+/* style des champs de formulaire */
 input, textarea, select {
     width: 100%;
     padding: 0.5rem;
@@ -64,8 +77,10 @@ input, textarea, select {
     font-size: 1rem;
 }
 
+/* les labels au dessus des champs */
 label { display: block; margin-bottom: 0.25rem; font-weight: 500; }
 
+/* boites de message succes et erreur */
 .alert { padding: 0.75rem; border-radius: 4px; margin-bottom: 1rem; }
-.alert-success { background: #d1fae5; color: #065f46; }
-.alert-error { background: #fee2e2; color: #991b1b; }
+.alert-success { background: #d1fae5; color: #065f46; }  /* vert */
+.alert-error   { background: #fee2e2; color: #991b1b; }  /* rouge */

@@ -1,4 +1,5 @@
 <?php
+// je verifie que c'est bien un admin qui accede a cette page
 require_once '../includes/auth.php';
 exigerAdmin();
 require_once '../includes/header.php';
@@ -6,6 +7,7 @@ require_once '../includes/header.php';
 
 <h2>Nouvel utilisateur</h2>
 
+<!-- formulaire pour creer un utilisateur -->
 <form method="POST" action="traiter_ajouter_user.php">
 
     <label for="prenom">Prenom</label>

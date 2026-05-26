@@ -1,19 +1,23 @@
 <?php
+// je charge la connexion et je verifie que c'est un admin
 require_once '../config/db.php';
 require_once '../includes/auth.php';
 exigerAdmin();
 
+// ce fichier doit venir du formulaire uniquement
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: ajouter_utilisateur.php');
     exit;
 }
 
+// je recupere les donnees du formulaire
 $prenom = trim($_POST['prenom'] ?? '');
 $nom    = trim($_POST['nom'] ?? '');
 $email  = trim($_POST['email'] ?? '');
 $mdp    = trim($_POST['mot_de_passe'] ?? '');
 $role   = $_POST['role'] ?? 'utilisateur';
 
+// je verifie que les champs sont remplis
 $erreurs = [];
 if ($prenom === '') $erreurs[] = "Le prenom est obligatoire.";
 if ($nom === '')    $erreurs[] = "Le nom est obligatoire.";
@@ -30,6 +34,7 @@ if (!empty($erreurs)) {
     exit;
 }
 
+// j'insere le nouvel utilisateur dans la base
 try {
     $req = $pdo->prepare("
         INSERT INTO utilisateurs (prenom, nom, email, mot_de_passe, role)
@@ -45,6 +50,7 @@ try {
     header('Location: utilisateurs.php?succes=1');
     exit;
 } catch (PDOException $e) {
+    // l'email est deja utilise par quelqu'un d'autre
     if ($e->getCode() === '23000') {
         require_once '../includes/header.php';
         echo '<p class="alert alert-error">Cet email est deja utilise.</p>';

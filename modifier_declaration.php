@@ -1,14 +1,18 @@
 <?php
+// je charge la connexion et je verifie la connexion utilisateur
 require_once 'config/db.php';
 require_once 'includes/auth.php';
 
+// je recupere l'id dans l'URL
 $id = intval($_GET['id'] ?? 0);
 if ($id <= 0) { header('Location: index.php'); exit; }
 
+// je cherche la declaration dans la base
 $req = $pdo->prepare("SELECT * FROM declarations WHERE id = :id");
 $req->execute([':id' => $id]);
 $declaration = $req->fetch();
 
+// si je trouve pas la declaration je renvoie a l'accueil
 if (!$declaration) { header('Location: index.php'); exit; }
 
 require_once 'includes/header.php';
@@ -16,6 +20,7 @@ require_once 'includes/header.php';
 
 <h2>Modifier la declaration</h2>
 
+<!-- je pre-remplis le formulaire avec les donnees existantes -->
 <form method="POST" action="traiter_modifier_declaration.php">
     <input type="hidden" name="id" value="<?= $declaration['id'] ?>">
 
