@@ -1,0 +1,6 @@
+# Fichier de connexion BD (contient les identifiants)
+config/db.php
+
+# Dossiers systeme
+.DS_Store
+Thumbs.db
